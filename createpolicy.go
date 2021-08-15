@@ -31,7 +31,6 @@ func CreateDataCadtFlags(v uint32) CreateDataOption {
 }
 func CreateDataHashSize(v uint32) CreateDataOption {
 	return func(d *CreateData) { d.HashSize = NewNetUInt32Box(v) }
- }
 }
 func CreateDataMarkMask(v uint32) CreateDataOption {
 	return func(d *CreateData) { d.MarkMask = NewNetUInt32Box(v) }
@@ -94,13 +93,13 @@ func unmarshalCreateData(nfaData netfilter.Attribute) *CreateData {
 	for _, nfa := range nfaData.Children {
 		switch at := AttributeType(nfa.Type); at {
 		case AttrCadtFlags:
-			d.CadtFlags = unmarshalUInt32Box(nfa)
+			d.CadtFlags = unmarshalNetUInt32Box(nfa)
 		case AttrHashSize:
-			d.HashSize = unmarshalUInt32Box(nfa)
+			d.HashSize = unmarshalNetUInt32Box(nfa)
 		case AttrMarkMask:
-			d.MarkMask = unmarshalUInt32Box(nfa)
+			d.MarkMask = unmarshalNetUInt32Box(nfa)
 		case AttrMaxElem:
-			d.MaxElem = unmarshalUInt32Box(nfa)
+			d.MaxElem = unmarshalNetUInt32Box(nfa)
 		case AttrNetmask:
 			d.NetMask = unmarshalUInt8Box(nfa)
 		case AttrProbes:
@@ -110,7 +109,7 @@ func unmarshalCreateData(nfaData netfilter.Attribute) *CreateData {
 		case AttrResize:
 			d.Resize = unmarshalUInt8Box(nfa)
 		case AttrSize:
-			d.Size = unmarshalUInt32Box(nfa)
+			d.Size = unmarshalNetUInt32Box(nfa)
 		case AttrTimeout:
 			d.Timeout = unmarshalUInt32SecondsDurationBox(nfa)
 		case AttrElements:
